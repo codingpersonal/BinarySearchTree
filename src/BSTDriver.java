@@ -1,3 +1,4 @@
+import javax.annotation.Generated;
 import javax.swing.text.AbstractDocument.LeafElement;
 
 public class BSTDriver {
@@ -13,15 +14,15 @@ public class BSTDriver {
 		root = bst.insert(root, 6);
 		root = bst.insert(root,7);
 		root = bst.insert(root, 90);
-		bst.insert(root, 36);
-		bst.insert(root, 25);
-		bst.insert(root, 9);
-		bst.insert(root, 5);
-		bst.insert(root, 14);
-		bst.insert(root,40);
-		//bst.insert(root, 42);
-		//bst.insert(root, 41);
-		//bst.insert(root, 3);
+		root = bst.insert(root, 36);
+		root = bst.insert(root, 25);
+		root = bst.insert(root, 9);
+		root = bst.insert(root, 5);
+		root = bst.insert(root, 14);
+		root = bst.insert(root,40);
+		root = bst.insert(root, 42);
+		root = bst.insert(root, 41);
+		root = bst.insert(root, 3);
 		
 //		System.out.println("Pre-order traversal:");
 //		bst.preOrder(root);
@@ -33,11 +34,15 @@ public class BSTDriver {
 //		bst.inOrder(root);
 //		
 //		System.out.println("Searching an item now:");
-//		bst.search(root, 10);
-//		
+//		bst.search(root, 41);
+		
 //		System.out.println("Length of the tree is:" + bst.lengthBST(root));
 		
-		bst.bfs(root);
+//		bst.bfs(root);
+//		bst.findMax(root);
+//		bst.findMin(root);
+		
+//		System.out.println("Diameter of the tree is :" + bst.getDiameter(root));
 	}
 
 }

@@ -3,7 +3,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BSTOperations {
-	Queue<BST> q = new LinkedList<>();
 	public BST insert(BST root, int item) {
 		if(root == null) {
 			BST newnode = new BST();
@@ -52,18 +51,27 @@ public class BSTOperations {
 	
 	public void search(BST root, int item) {
 		if(root == null) {
-			System.out.println("Item does not exist.");
+			System.out.println("Tree is empty. No item found.");
 			return;
 		}
 		
-		if(root.item == item) {
-			System.out.println("Item found in BST");
-		}
-		else if(item <= root.item) {
-			search(root.left, item);
-		}
-		else {
-			search(root.right, item);
+		boolean flag = false;
+		while(!flag) {
+			if(root == null) {
+				System.out.println("Item not found.");
+				return;
+			}
+
+			if(root.item == item) {
+				System.out.println("Item found in BST");
+				flag = true;
+			}
+			else if(item <= root.item) {
+				root = root.left;
+			}
+			else {
+				root = root.right;
+			}
 		}
 	}
 	
@@ -74,6 +82,10 @@ public class BSTOperations {
 		return max(lengthBST(root.left), lengthBST(root.right)) + 1;	
 	}
 
+	public int getDiameter(BST root){
+		return lengthBST(root.left) + lengthBST(root.right) + 1;
+	}
+	
 	private int max(int length1, int length2) {
 		if(length1 >= length2) 
 			return length1;
@@ -82,6 +94,7 @@ public class BSTOperations {
 	}
 
 	public void bfs(BST root){
+		Queue<BST> q = new LinkedList<>();
 		q.add(root);
 		
 		while(!q.isEmpty()) {
@@ -97,6 +110,29 @@ public class BSTOperations {
 				q.add(node.right);
 		}
 	}
+
+	public void findMax(BST root) {
+		int max = root.item;
+		
+		while(root.right != null) {
+			max = root.right.item;
+			root = root.right;
+		}
+		
+		System.out.println("Maximum element in the BST is:" + max);
+	}
+	
+	public void findMin(BST root) {
+		int min = root.item;
+		
+		while(root.left != null) {
+			min = root.left.item;
+			root = root.left;
+		}
+		
+		System.out.println("Maximum element in the BST is:" + min);
+	}
+
 }
 
 
