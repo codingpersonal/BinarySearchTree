@@ -1,4 +1,9 @@
-public class BSTOperations {	
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class BSTOperations {
+	Queue<BST> q = new LinkedList<>();
 	public BST insert(BST root, int item) {
 		if(root == null) {
 			BST newnode = new BST();
@@ -75,5 +80,23 @@ public class BSTOperations {
 		else
 			return length2;
 	}
+
+	public void bfs(BST root){
+		q.add(root);
+		
+		while(!q.isEmpty()) {
+			BST node = q.remove();
+			if(node != null) {
+				System.out.println(node.item);
+			}
+			
+			if(node.left != null)
+				q.add(node.left);
+			
+			if(node.right != null)
+				q.add(node.right);
+		}
+	}
 }
+
 

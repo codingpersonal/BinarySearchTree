@@ -19,23 +19,25 @@ public class BSTDriver {
 		bst.insert(root, 5);
 		bst.insert(root, 14);
 		bst.insert(root,40);
-		bst.insert(root, 42);
-		bst.insert(root, 41);
-		bst.insert(root, 3);
+		//bst.insert(root, 42);
+		//bst.insert(root, 41);
+		//bst.insert(root, 3);
 		
-		System.out.println("Pre-order traversal:");
-		bst.preOrder(root);
+//		System.out.println("Pre-order traversal:");
+//		bst.preOrder(root);
+//		
+//		System.out.println("Post order traversal:");
+//		bst.postOrder(root);
+//		
+//		System.out.println("Inorder traversal:");
+//		bst.inOrder(root);
+//		
+//		System.out.println("Searching an item now:");
+//		bst.search(root, 10);
+//		
+//		System.out.println("Length of the tree is:" + bst.lengthBST(root));
 		
-		System.out.println("Post order traversal:");
-		bst.postOrder(root);
-		
-		System.out.println("Inorder traversal:");
-		bst.inOrder(root);
-		
-		System.out.println("Searching an item now:");
-		bst.search(root, 10);
-		
-		System.out.println("Length of the tree is:" + bst.lengthBST(root));
+		bst.bfs(root);
 	}
 
 }
