@@ -1,10 +1,14 @@
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
+import java.util.concurrent.DelayQueue;
 
 public class BSTOperations {
 	public BST insert(BST root, int item) {
-		if(root == null) {
+		if (root == null) {
 			BST newnode = new BST();
 			newnode.item = item;
 			newnode.left = null;
@@ -12,127 +16,269 @@ public class BSTOperations {
 			root = newnode;
 			return root;
 		}
-		
-		else if(item <= root.item) {
+
+		else if (item <= root.item) {
 			root.left = insert(root.left, item);
 			return root;
 		}
-		
+
 		else {
-			root.right = insert(root.right,item);
+			root.right = insert(root.right, item);
 			return root;
 		}
-		
+
 	}
-	
+
 	public void preOrder(BST root) {
-		if(root != null) {
+		if (root != null) {
 			System.out.println(root.item);
 			preOrder(root.left);
 			preOrder(root.right);
 		}
 	}
-	
+
 	public void postOrder(BST root) {
-		if(root != null) {
+		if (root != null) {
 			postOrder(root.left);
 			postOrder(root.right);
 			System.out.println(root.item);
 		}
 	}
-	
+
 	public void inOrder(BST root) {
-		if(root != null) {
+		if (root != null) {
 			inOrder(root.left);
 			System.out.println(root.item);
 			inOrder(root.right);
 		}
 	}
-	
+
 	public void search(BST root, int item) {
-		if(root == null) {
+		if (root == null) {
 			System.out.println("Tree is empty. No item found.");
 			return;
 		}
-		
+
 		boolean flag = false;
-		while(!flag) {
-			if(root == null) {
+		while (!flag) {
+			if (root == null) {
 				System.out.println("Item not found.");
 				return;
 			}
 
-			if(root.item == item) {
+			if (root.item == item) {
 				System.out.println("Item found in BST");
 				flag = true;
-			}
-			else if(item <= root.item) {
+			} else if (item <= root.item) {
 				root = root.left;
-			}
-			else {
+			} else {
 				root = root.right;
 			}
 		}
 	}
-	
+
 	public int lengthBST(BST root) {
-		if(root == null) {
+		if (root == null) {
 			return 0;
 		}
-		return max(lengthBST(root.left), lengthBST(root.right)) + 1;	
+		return max(lengthBST(root.left), lengthBST(root.right)) + 1;
 	}
 
-	public int getDiameter(BST root){
+	public int getDiameter(BST root) {
 		return lengthBST(root.left) + lengthBST(root.right) + 1;
 	}
-	
+
 	private int max(int length1, int length2) {
-		if(length1 >= length2) 
+		if (length1 >= length2)
 			return length1;
 		else
 			return length2;
 	}
 
-	public void bfs(BST root){
+	public void bfs(BST root) {
 		Queue<BST> q = new LinkedList<>();
 		q.add(root);
-		
-		while(!q.isEmpty()) {
+
+		while (!q.isEmpty()) {
 			BST node = q.remove();
-			if(node != null) {
+			if (node != null) {
 				System.out.println(node.item);
 			}
-			
-			if(node.left != null)
+
+			if (node.left != null)
 				q.add(node.left);
-			
-			if(node.right != null)
+
+			if (node.right != null)
 				q.add(node.right);
 		}
 	}
 
 	public void findMax(BST root) {
 		int max = root.item;
-		
-		while(root.right != null) {
+
+		while (root.right != null) {
 			max = root.right.item;
 			root = root.right;
 		}
-		
+
 		System.out.println("Maximum element in the BST is:" + max);
 	}
-	
+
 	public void findMin(BST root) {
 		int min = root.item;
-		
-		while(root.left != null) {
+
+		while (root.left != null) {
 			min = root.left.item;
 			root = root.left;
 		}
-		
+
 		System.out.println("Maximum element in the BST is:" + min);
 	}
 
+	public void findWidth(BST root) {
+		int count = 0;
+		int loopCount = 0;
+		int max = 0;
+
+		Queue<BST> q = new LinkedList<>();
+
+		q.add(root);
+		count++;
+		loopCount = count;
+		max = count;
+		count = 0;
+
+		while (!q.isEmpty()) {
+			if (loopCount == 0) {
+				loopCount = count;
+				if (count > max)
+					max = count;
+
+				count = 0;
+			}
+				BST node = q.remove();
+				if (node.left != null) {
+					count++;
+					q.add(node.left);
+				}
+
+				if (node.right != null) {
+					q.add(node.right);
+					count++;
+				}
+				loopCount--;
+			}
+
+		System.out.println("The width of the tree is:" + max);
+	}
+
+	
+
+	public void printPaths(BST root, Stack<BST> list) {
+		if (root != null) {
+			list.push(root);
+		}
+		else
+			return;
+		if (root.left == null && root.right == null) {
+			Iterator iterator = list.iterator();
+			while(iterator.hasNext()){
+			  BST element = (BST) iterator.next();
+			  System.out.print(element.item + " ");
+			}
+			System.out.println("\n");
+			list.pop();
+		} else {
+			printPaths(root.left, list);
+			printPaths(root.right, list);
+			list.pop();
+		}
+	}
+
+	public void printLevelWise(BST root) {
+		int loopCount = 1;
+		int count = 0;
+
+		Queue<BST> q = new LinkedList<>();
+
+		q.add(root);
+		System.out.println(root.item + "\n");
+
+		while (!q.isEmpty()) {
+			if (loopCount == 0) {
+				System.out.println("\n\n");
+				loopCount = count;
+				count = 0;
+			}
+			BST node = q.remove();
+			if (node.left != null) {
+				count++;
+				q.add(node.left);
+				System.out.print(node.left.item + "-");
+			}
+
+			if (node.right != null) {
+				q.add(node.right);
+				count++;
+				System.out.print(node.right.item + "-");
+			}
+			loopCount--;
+		}
+
+	}
+
+	public void printLevelWiseAlt(BST root) {
+		int loopCount = 1;
+		int count = 0;
+		boolean flag = true;
+
+		Deque<BST> q = new LinkedList<>();
+
+		q.add(root);
+		System.out.println(root.item + "\n");
+
+		while (!q.isEmpty()) {
+			if (loopCount == 0) {
+				loopCount = count;
+				count = 0;
+				flag = !flag;
+				System.out.println("\n\n");
+
+			}
+			BST node;
+			if (flag) {
+				node = q.removeFirst();
+				if (node.left != null) {
+					count++;
+					q.addLast(node.left);
+					System.out.print(node.left.item + " ");
+
+				}
+
+				if (node.right != null) {
+					count++;
+					q.addLast(node.right);
+					System.out.print(node.right.item + " ");
+
+				}
+
+			} else {
+				node = q.removeLast();
+				if (node.right != null) {
+					count++;
+					q.addFirst(node.right);
+					System.out.print(node.right.item + " ");
+				}
+				if (node.left != null) {
+					count++;
+					q.addFirst(node.left);
+					System.out.print(node.left.item + " ");
+
+				}
+			}
+
+			loopCount--;
+		}
+	}
+
 }
-
-
