@@ -34,11 +34,11 @@ public class BSTDriver {
 		root = bst.insert(root, 4);
 		
 		
-		System.out.println("Pre-order traversal:");
-		bst.preOrder(root);
+//		System.out.println("Pre-order traversal:");
+//		bst.preOrder(root);
 //		
-//		System.out.println("Post order traversal:");
-//		bst.postOrder(root);
+		System.out.println("Post order traversal:");
+		bst.postOrder(root);
 //		
 //		System.out.println("Inorder traversal:");
 //		bst.inOrder(root);
@@ -94,8 +94,8 @@ public class BSTDriver {
 //		System.out.println(lt.hasNext());
 		
 		
-		PreOrderIterator pre = new PreOrderIterator(root);
-		System.out.println("\nPreorder using iterator:");
+		PostOrderIterator pre = new PostOrderIterator(root);
+		System.out.println("\nPost order using iterator:");
 		while(pre.hasNext()) {
 			System.out.print(pre.next().item + " ");
 		}

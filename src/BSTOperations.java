@@ -42,7 +42,7 @@ public class BSTOperations {
 		if (root != null) {
 			postOrder(root.left);
 			postOrder(root.right);
-			System.out.println(root.item);
+			System.out.print(root.item + " ");
 		}
 	}
 
