@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -31,7 +32,7 @@ public class BSTOperations {
 
 	public void preOrder(BST root) {
 		if (root != null) {
-			System.out.println(root.item);
+			System.out.print(root.item + " ");
 			preOrder(root.left);
 			preOrder(root.right);
 		}
@@ -48,7 +49,7 @@ public class BSTOperations {
 	public void inOrder(BST root) {
 		if (root != null) {
 			inOrder(root.left);
-			System.out.println(root.item);
+			System.out.print(root.item + " ");
 			inOrder(root.right);
 		}
 	}
@@ -281,4 +282,135 @@ public class BSTOperations {
 		}
 	}
 
+	public void treeMirror(BST node) {
+		if(node.left == null && node.right == null) {
+			return;
+		}
+		
+		if(node.left != null) {
+			treeMirror(node.left);
+		}
+		
+		if(node.right != null) {
+			treeMirror(node.right);
+		}
+		
+		if(node.left != null && node.right != null) {
+			BST temp = node.left;
+			node.left = node.right;
+			node.right = temp;
+		}
+		else if(node.left != null) {
+			node.right = node.left;
+			node.left = null;
+		}
+		else {
+			node.left = node.right;
+			node.right = null;
+		}
+	}
+	
+	//MOCK INTERVIEW QUESTION
+	public boolean isBST(BST node) {
+		int leftElem = -1;
+		int rightElem = -1;
+		boolean left = true;
+		boolean right = true;
+		
+		if(node.left == null && node.right == null) {
+			return true;
+		}
+		
+		if(node.left != null) {
+			leftElem = node.left.item;
+			if(leftElem <= node.item) {
+				left = isBST(node.left);
+			} else {
+				return false; 
+			}
+		}
+		
+		if(node.right != null) {
+			rightElem = node.right.item;
+			if(rightElem > node.item) {
+				right = isBST(node.right); 
+			} else {
+				return false;
+			}
+		}
+		
+		return left && right;
+	}
+	
+	//MOCK INTERVIEW QUESTION
+	public void preOrder_nonrec(BST node) {
+	
+		Stack<BST> s = new Stack<>();
+		if(node != null) {
+			s.push(node);
+		}
+		
+		while(!s.isEmpty()) {
+			BST n = s.pop();
+			System.out.print(n.item +" ");
+			if(n.right != null) {
+				s.push(n.right);
+			}
+			if(n.left != null) {
+				s.push(n.left);
+			}		
+		}
+	}
+	
+	class NodeInfo {
+		BST bst;
+		int flag;
+	}
+	
+	//MOCK INTERVIEW QUESTION
+	public void inorder_nonrec(BST node) {
+		Stack<NodeInfo> s = new Stack<>();
+		NodeInfo ni = new NodeInfo();
+		
+		if(node != null) {
+			ni.bst = node;
+			ni.flag = 2;
+			s.push(ni);
+		}
+		
+		while(!s.isEmpty()) {
+			NodeInfo currNi = s.pop();
+			BST currNode = currNi.bst;
+			int flag = currNi.flag;
+			
+			//It means its left child has been processed. So print it.
+			if(flag == 1) {
+				System.out.print(currNode.item + " ");
+			} else if(flag == 2) {
+				
+				if(currNode.right != null) {
+					currNi = new NodeInfo();
+					currNi.bst = currNode.right;
+					currNi.flag = 2;
+					s.push(currNi);
+				}
+				
+				currNi = new NodeInfo();
+				currNi.bst = currNode;
+				currNi.flag = 1;
+				s.push(currNi);
+				
+				if(currNode.left != null) {
+					currNi = new NodeInfo();
+					currNi.bst = currNode.left;
+					currNi.flag = 2;
+					s.push(currNi);
+				}
+			}
+		}
+		
+	}
+	
+	
 }
+
