@@ -19,6 +19,17 @@ public class CloneTree {
 		return newroot;
 	}
 	
+	public boolean isCloneBST(BST root1, BST root2) {
+		if(root1 == null && root2 == null) {
+			return true;
+		}
+		else if(root1 != null && root2 != null) {
+			return (root1.item == root2.item) && isCloneBST(root1.left, root2.left) && isCloneBST(root1.right,root2.right);
+		} else {
+			return false;
+		}
+	}
+	
 	public static void main(String args[]) {
 		BSTOperations bst = new BSTOperations();
 		BST root = new BST();
@@ -54,9 +65,11 @@ public class CloneTree {
 		
 		System.out.println("\n\nPre order of the clone tree is:");
 		bst.preOrder(newnode);
+//		
+//		System.out.println("\n\nPreorder for origial tree is:(to ensure that root is not modified)");
+//		bst.preOrder(root);
 		
-		System.out.println("\n\nPreorder for origial tree is:(to ensure that root is not modified)");
-		bst.preOrder(root);
+		System.out.println("\n\nAre two trees same? :" + ct.isCloneBST(root, newnode));
 		
 	}
 }

@@ -310,36 +310,23 @@ public class BSTOperations {
 		}
 	}
 	
+	
 	//MOCK INTERVIEW QUESTION
-	public boolean isBST(BST node) {
-		int leftElem = -1;
-		int rightElem = -1;
-		boolean left = true;
-		boolean right = true;
+	
+	/// returns true if its a BST and every element is in the range from minRange and maxRange
+	public boolean isBSTAndInRange(BST root, int minRange, int maxRange) {
 		
-		if(node.left == null && node.right == null) {
+		if (root == null)
 			return true;
-		}
 		
-		if(node.left != null) {
-			leftElem = node.left.item;
-			if(leftElem <= node.item) {
-				left = isBST(node.left);
-			} else {
-				return false; 
-			}
-		}
-		
-		if(node.right != null) {
-			rightElem = node.right.item;
-			if(rightElem > node.item) {
-				right = isBST(node.right); 
-			} else {
-				return false;
-			}
-		}
-		
-		return left && right;
+		return (root.item < maxRange && root.item >= minRange) 
+				&& isBSTAndInRange(root.left, minRange, root.item)
+				&& isBSTAndInRange(root.right, root.item, maxRange);
+	}
+	
+	// this return if the tree from root is a BST or not
+	public boolean isBST(BST root) {
+		return isBSTAndInRange(root, -999999, 9999999);
 	}
 	
 	//MOCK INTERVIEW QUESTION
