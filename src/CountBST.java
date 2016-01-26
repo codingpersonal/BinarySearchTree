@@ -1,5 +1,6 @@
 /*How many BSTs can be formed from a sorted array of integers*/
 public class CountBST {
+	int dp_store[] = {-1,-1,-1};
 	
 	//this function will take an array and returns the no of trees which 
 	//can be formed between elements from beg to end
@@ -15,10 +16,15 @@ public class CountBST {
 		}
 		
 		for(int i = beg; i <= end ; i++) {
-			int leftCount = makeBST(arr, 0, beg-1);
-			int rightCount = makeBST(arr,beg+1, end);
-			tot_for_curr_root += leftCount * rightCount;
-		}
+			//if(dp_store[beg] != -1) {
+			//	tot_for_curr_root = dp_store[beg];
+			//} else {
+				int leftCount = makeBST(arr, 0, beg-1);
+				int rightCount = makeBST(arr,beg+1, end);
+				tot_for_curr_root += leftCount * rightCount;
+				dp_store[beg] = tot_for_curr_root;
+			}
+		//}
 		return tot_for_curr_root;
 	}
 
@@ -26,6 +32,7 @@ public class CountBST {
 		CountBST c = new CountBST();
 		int arr[] = {1,2,3};
 		System.out.println(c.makeBST(arr, 0, 2));
+		//System.out.println(c.dp_store);
 	}
 
 }
