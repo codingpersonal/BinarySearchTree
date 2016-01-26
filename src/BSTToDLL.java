@@ -6,16 +6,13 @@ public class BSTToDLL {
 			return new NodePtr(null,null);
 		}
 		else if(root.left == null && root.right == null) {
-			Node node = new Node();
-			node.item = root.item;
-			node.next = null;
-			node.prev = null;
-			NodePtr ret = new NodePtr(node, node);
+			NodePtr ret = new NodePtr(root,root);
 			return ret;
 		}
 		else {
 			NodePtr left = null, right = null;
-			Node end, start;
+			BST end;
+			BST start;
 			
 			if(root.left != null)
 				left = convertBSTtoDLL(root.left);
@@ -23,24 +20,21 @@ public class BSTToDLL {
 			if(root.right != null)
 				right = convertBSTtoDLL(root.right);
 			
-			Node currNode = new Node();
-			currNode.item = root.item;
-			
 			if(left == null) {
-				currNode.prev = null;
-				start = currNode;
+				root.left = null;
+				start = root;
 			}else {
-				left.end.next = currNode;
-				currNode.prev = left.end;
+				left.end.right = root;
+				root.left = left.end;
 				start = left.start;
 			}
 			
 			if(right == null) {
-				currNode.next = null;
-				end = currNode;
+				root.right = null;
+				end = root;
 			} else {
-				currNode.next = right.start;
-				right.start.prev = currNode;
+				root.right = right.start;
+				right.start.left = root;
 				end = right.end;
 			}
 			
@@ -84,24 +78,24 @@ public class BSTToDLL {
 		System.out.println("\nOutput DLL is from start:");
 		while(n.start != null) {
 			System.out.print(n.start.item+ " ");
-			n.start = n.start.next;
+			n.start = n.start.right;
 		}
 		
 		System.out.println("\nOutput DLL is from end:");
 		while(n.end != null) {
 			System.out.print(n.end.item+" ");
-			n.end = n.end.prev;
+			n.end = n.end.left;
 		}
 	}
 
 }
 
 class NodePtr{
-	Node start = null;
-	Node end = null;
-	NodePtr(Node s, Node e) {
-		start = s; 
-		end = e;
+	BST start = null;
+	BST end = null;
+	NodePtr(BST root, BST root2) {
+		start = root; 
+		end = root2;
 	}
 }
 
