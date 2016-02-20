@@ -1,52 +1,7 @@
-import java.awt.PageAttributes;
-import java.util.ArrayList;
-
 //It means finding the common parent for 2 nodes.
-//This code is for BST - non recursion method.
-//It is not efficient way or logic
 
 public class LeastCommonAscendant {
-
-	
-	//Old way - inefficient logic
-	/*public BST findLCA(BST node1, BST node2, BST root) {
-		ArrayList<BST> path1 = new ArrayList<>();
-		ArrayList<BST> path2 = new ArrayList<>();
-		
-		path1 = findPathfromRoot(root, node1);
-		path2 = findPathfromRoot(root, node2);
-		
-		int beg = path1.size() - 1;
-		for(int i = beg; i >= 0; i--) {
-			BST currNode = path1.get(i);
-			if(path2.indexOf(currNode) != -1) {
-				return currNode;
-			}
-		}
-		
-		return root;
-	}
-	
-	public ArrayList<BST> findPathfromRoot(BST root, BST node) {
-		ArrayList<BST>path = new ArrayList<>();
-		path.add(root);
-		BST currNode = root;
-		
-		while(currNode != node) {
-			if(node.item > currNode.item) {
-				path.add(currNode.right);
-				currNode = currNode.right;
-			}
-			else {
-				path.add(currNode.left);
-				currNode = currNode.left;
-			}
-		}
-		
-		return path;
-	}*/
-	
-	
+	//Looks for lca in a BST
 	public BST findLCA(BST node1, BST node2,BST root) {
 		BST parent = new BST();
 		parent = root;
@@ -80,18 +35,20 @@ public class LeastCommonAscendant {
 			return new Ret_findLCA_BT(null, false);
 		}
 
+		//search for the lca assuming both are in left subtree. see if parent is found.
 		Ret_findLCA_BT ret_left = findLCA_BT(node1, node2, root.left);
 		if (ret_left.parent != null) {
 			return ret_left;
 		}
 
+		//search for lca assuming both are in right sub tree. see if parent is found.
 		Ret_findLCA_BT ret_right = findLCA_BT(node1, node2, root.right);
 		if (ret_right.parent != null) {
 			return ret_right;
 		}
 
 		if (root.item == node1.item || root.item == node2.item) {
-			// find the other item in either left or right. 
+			// if root is one item, find the other item in either left or right. 
 			
 			if (ret_left.found_any_node || ret_right.found_any_node) {
 				// if anything is found in left or right, it means root is the LCA
@@ -100,12 +57,15 @@ public class LeastCommonAscendant {
 				return new Ret_findLCA_BT(null, true);
 			}
 		} else {
+			//if both nodes are found, one in right, other in left, then root is parent.
 			if (ret_left.found_any_node && ret_right.found_any_node) {
 				return new Ret_findLCA_BT(root, false);
+				//if only one node is found till now. then parent is null and found any is true.
 			} else if (ret_left.found_any_node || ret_right.found_any_node) {
 				return new Ret_findLCA_BT(null, true);
 			}
 		}
+		//if nothig is found, then null and false;
 		return new Ret_findLCA_BT(null, false);
 	}
 	

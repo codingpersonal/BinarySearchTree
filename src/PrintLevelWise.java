@@ -1,8 +1,42 @@
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class PrintLevelWise {
 	Queue<BST>tree = new LinkedList<>();
+	
+	public void printAlternating(BST root) {
+		if (root == null) 
+			return;
+		
+		Stack<BST> ltr = new Stack<>();
+		Stack<BST> rtl = new Stack<>();
+		ltr.push(root);
+		boolean isFound = true;
+		while (isFound) {
+			isFound = false;
+			while (!ltr.empty()) {
+				isFound = true;
+				BST currNode = ltr.pop();
+				System.out.printf("%d ", currNode.item);
+				if (currNode.left != null)
+					rtl.push(currNode.left);
+				if (currNode.right != null)
+					rtl.push(currNode.right);
+			}
+			
+			System.out.println("\n");
+			while (!rtl.empty()) {
+				isFound = true;
+				BST currNode = rtl.pop();
+				System.out.printf("%d ", currNode.item);
+				if (currNode.right != null)
+					ltr.push(currNode.right);
+				if (currNode.left != null)
+					ltr.push(currNode.left);
+			}
+		}
+	}
 	
 	public void printLevelWise(BST root) {
 		int count = 0;

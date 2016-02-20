@@ -1,3 +1,5 @@
+//Left view is the first element in the tree on each level
+//right view is the last element in the tree on each level.
 import java.util.LinkedList;
 import java.util.Queue;
 

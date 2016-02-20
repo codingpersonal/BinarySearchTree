@@ -1,3 +1,5 @@
+//if there are two trees, print the alternate leaf nodes of the two trees.
+//sol: write a tree leaf iterator and then keep on printing the alt leaves using iterator.
 public class PrintAltLeafNodes {
 	BST root1, root2;
 	LeafIterator li_1;

@@ -1,20 +1,10 @@
-
+//in a bst , print the kth increasing number.
+//sol : if you do an inorder of a bst, the numbers are arranged in the ascending order.
 public class PrintKAscendingNumber {
 	int count = 0;
 	
-	public int printKAscendingNumber(BST root, int k, int currCount) {
-		if(root == null)
-			return 0;
-		
-		currCount = printKAscendingNumber(root.left,k,currCount);
-		currCount++;
-		if(currCount == k) {
-			System.out.println(root.item);
-		} else {
-			currCount += printKAscendingNumber(root.right,k,currCount);
-		}
-		return currCount;
-		
+	public int printKAscendingNumber(BST root, int k) {
+		return -1;
 	}
 	
 	public static void main(String[] args) {
@@ -44,7 +34,7 @@ public class PrintKAscendingNumber {
 //		root = bst.insert(root, 2);
 //		root = bst.insert(root, 4);
 		
-		p.printKAscendingNumber(root, 1, 0);
+		p.printKAscendingNumber(root, 2);
 	}
 
 }
