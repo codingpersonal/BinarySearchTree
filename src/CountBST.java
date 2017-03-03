@@ -30,8 +30,8 @@ public class CountBST {
 
 	public static void main(String[] args) {
 		CountBST c = new CountBST();
-		int arr[] = {1,2,3};
-		System.out.println(c.makeBST(arr, 0, 2));
+		int arr[] = {1,2,3,4};
+		System.out.println(c.makeBST(arr, 0, 3));
 		//System.out.println(c.dp_store);
 	}
 

@@ -269,6 +269,7 @@ public class BSTOperations {
 		System.out.println(root.item + "\n");
 
 		while (!q.isEmpty()) {
+			//means one level has been processed
 			if (loopCount == 0) {
 				loopCount = count;
 				count = 0;
@@ -312,6 +313,7 @@ public class BSTOperations {
 		}
 	}
 
+	//converting a tree to its mirror. Do inplace, do not create a new tree.
 	public void treeMirror(BST node) {
 		if (node.left == null && node.right == null) {
 			return;

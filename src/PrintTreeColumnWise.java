@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class PrintTreeColumnWise {
 
+	//tree map is used because the keys are in sorted order.
+	//sorted keys are needed to print the tree from the left most column side
 	HashMap<Integer, ArrayList<Integer>>treeMap = new HashMap<>();
 	public void fillTreeMap(BST root, int col) {
 		if(root == null) {
